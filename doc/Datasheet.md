@@ -7,8 +7,6 @@ Thanks to FABulous, the user bitstream for the FPGA can be generated using the Y
 
 The chip is designed with open source EDA tools and the [IHP Open Source PDK](https://github.com/IHP-GmbH/IHP-Open-PDK).
 
-You can find the design repository here: https://github.com/FPGA-Research/heichips25-tapeout
-
 <p align="center">
   <a href="img/heichips25_top_white.png">
     <img src="img/heichips25_top_white_small.png" alt="chip layout" width=40%>
@@ -62,6 +60,22 @@ The offset of the slots is 0x800 words (0x2000 bytes). The controller uses the f
 
 If passive SPI mode is selected, the bitstream can be supplied via an external SPI controller.
 
+## Specification
+
+The IO voltage (IOVDD) should be 3.3V.
+The core voltage (VDD) should be 1.2V.
+
+The top level, including the configuration logic, was implemented for the following corners at 80MHz and is free of setup and hold violations.
+
+- nom_typ_1p20V_25C
+- nom_fast_1p32V_m40C
+- nom_slow_1p08V_125C
+- nom_typ_1p50V_25C
+- nom_fast_1p65V_m40C
+- nom_slow_1p35V_125C
+
+Using a core voltage higher than 1.65V (while remaining within the safe operating area) may still work, but could lead to hold violations in the configuration logic. If that happens, you can try increasing the voltage after configuration of the FPGA is complete.
+
 ## Pinout
 
 <p align="center">
@@ -69,11 +83,6 @@ If passive SPI mode is selected, the bitstream can be supplied via an external S
     <img src="img/bonding_diagram.png" alt="bonding diagram" width=65%>
   </a>
 </p>
-
-The IO voltage (IOVDD) should be 3.3V.
-The core voltage (VDD) should be 1.2V.
-
-The core can be increased to a maximum of 1.8V. However, doing so could lead to hold violations in the configuration logic. If this happens, you can try increasing the voltage after configuration is complete.
 
 | Pin name                | Description                   |
 |-------------------------|-------------------------------|
